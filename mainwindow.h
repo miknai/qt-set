@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPixmap>
+#include <QVector>
+#include "set.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,9 +18,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
     void MousePressed();
 
 private:
     Ui::MainWindow *ui;
+    QVector<Set::Card> cardsOnTable;
+    //int cnt;
+    bool state = false;
 };
 #endif // MAINWINDOW_H
