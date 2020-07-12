@@ -20,11 +20,14 @@ public:
 
 private slots:
     void MousePressed();
+    void MousePressed2();
 
 private:
     Ui::MainWindow *ui;
     QVector<Set::Card> cardsOnTable;
     //int cnt;
     bool state = false;
+    bool state2 = false;
+
 };
 #endif // MAINWINDOW_H

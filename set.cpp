@@ -13,6 +13,7 @@ void Set::initialize(QVector<Card> &cards) {
         cards[i].number = i;
     }
 }
+
 int myRandGen(int i) {
     return rand()%i;
 }
@@ -30,6 +31,11 @@ void Set::print(QVector<Card> &cards) {
     qInfo() << "\n\n";
 }
 
-void Set::putOnTable(QVector<Card> &cards) {
-
+void Set::putOnTable(QVector<Card> &cards, QVector<Card> &cardsOnTable) {
+    if(cardsOnTable.size() == 0) { // initial case
+        for(int i=0; i < tableCardNum; ++i) {
+            cardsOnTable.push_back(cards.back());
+            cards.pop_back();
+        }
+    }
 }
