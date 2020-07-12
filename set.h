@@ -13,6 +13,7 @@ public:
         int number;
         bool onTable = false;
         QPixmap pix;
+        bool selected = false;
     };
 
     static void initialize(QVector<Card> &cards);
