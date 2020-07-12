@@ -19,8 +19,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void MousePressed();
-    void MousePressed2();
+    void MousePressed(int labelNum);
+    //void MousePressed2();
 
 private:
     Ui::MainWindow *ui;

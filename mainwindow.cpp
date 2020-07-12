@@ -2,6 +2,7 @@
 #include <QPainter>
 //#include <QThread>
 #include <QDebug>
+#include <QSignalMapper>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -13,9 +14,19 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->label, SIGNAL(clicked()), this, SLOT(MousePressed()));
-    connect(ui->label_2, SIGNAL(clicked()), this, SLOT(MousePressed2()));
+
+    QSignalMapper* signalMapper = new QSignalMapper(this);
+    connect(ui->label, SIGNAL(clicked()), signalMapper, SLOT(map()));
+    connect(ui->label_2, SIGNAL(clicked()), signalMapper, SLOT(map()));
+
+    signalMapper->setMapping(ui->label, 1);
+    signalMapper->setMapping(ui->label_2, 2);
+
+//    connect(ui->label, SIGNAL(clicked()), this, SLOT(MousePressed(1)));
+//    connect(ui->label_2, SIGNAL(clicked()), this, SLOT(MousePressed2(2)));
     //connect(ui->label_3, SIGNAL(clicked()), this, SLOT(MousePressed()));
+
+    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(MousePressed(int)));
 
 
     QVector<Set::Card> cards(Set::totalCardNum+1);
@@ -59,13 +70,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::MousePressed()
+void MainWindow::MousePressed(int labelNum)
 {
-    state = !state;
-    if(state) {
-        ui->mousePressChecker->setText("pressed");
-    } else {
-        ui->mousePressChecker->setText("toggle");
+    if(labelNum == 1) {
+        state = !state;
+        if(state) {
+            ui->mousePressChecker->setText("pressed");
+        } else {
+            ui->mousePressChecker->setText("toggle");
+        }
+    }
+
+    if(labelNum == 2) {
+        state2 = !state2;
+        if(state2) {
+            ui->mousePressChecker->setText("pressed2");
+        } else {
+            ui->mousePressChecker->setText("toggle2");
+        }
     }
 
 
@@ -83,14 +105,14 @@ void MainWindow::MousePressed()
 //    ui->label->setPixmap(pix1);
 }
 
-void MainWindow::MousePressed2()
-{
-    state2 = !state2;
-    if(state2) {
-        ui->mousePressChecker->setText("pressed2");
-    } else {
-        ui->mousePressChecker->setText("toggle2");
-    }
-}
+//void MainWindow::MousePressed2()
+//{
+//    state2 = !state2;
+//    if(state2) {
+//        ui->mousePressChecker->setText("pressed2");
+//    } else {
+//        ui->mousePressChecker->setText("toggle2");
+//    }
+//}
 
 
