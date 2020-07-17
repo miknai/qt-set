@@ -52,6 +52,31 @@ MainWindow::MainWindow(QWidget *parent)
     cardsOnTable[1].pix.load("/Users/geonsookim/Desktop/qt-set/img/card2.png");
     cardsOnTable[2].pix.load("/Users/geonsookim/Desktop/qt-set/img/card3.png");
 
+    cardsOnTable[0].pixOn.load("/Users/geonsookim/Desktop/qt-set/img/card1.png");
+    cardsOnTable[1].pixOn.load("/Users/geonsookim/Desktop/qt-set/img/card2.png");
+    cardsOnTable[2].pixOn.load("/Users/geonsookim/Desktop/qt-set/img/card3.png");
+
+    QRectF rect(0, 0, cardsOnTable[0].pix.width()-1, cardsOnTable[0].pix.height()-1);
+    QPen pen("red");
+    pen.setWidth(3);
+
+    QPainter painter;
+
+    painter.begin(&cardsOnTable[0].pixOn);
+    painter.setPen(pen);
+    painter.drawRoundedRect(rect, 20, 20);
+    painter.end();
+
+    painter.begin(&cardsOnTable[1].pixOn);
+    painter.setPen(pen);
+    painter.drawRoundedRect(rect, 20, 20);
+    painter.end();
+
+    painter.begin(&cardsOnTable[2].pixOn);
+    painter.setPen(pen);
+    painter.drawRoundedRect(rect, 20, 20);
+    painter.end();
+
     ui->label->setPixmap(cardsOnTable[0].pix);
     ui->label_2->setPixmap(cardsOnTable[1].pix);
     ui->label_3->setPixmap(cardsOnTable[2].pix);
@@ -65,6 +90,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::MousePressed(int labelNum)
 {
+//    QPixmap temp;
+//    if(!cardsOnTable[labelNum].selected) {
+//        temp = cardsOnTable[labelNum].pix;
+//        ui->label_3->setPixmap(temp);
+//    }
+
     cardsOnTable[labelNum].selected = !cardsOnTable[labelNum].selected;
 
     QString str1 = QString("pressed%1").arg(labelNum);
@@ -84,26 +115,24 @@ void MainWindow::MousePressed(int labelNum)
 //    temp = &cardsOnTable[labelNum].pix;
 //    QPixmap temp2 = *temp;
 
-    Set::Card temp(cardsOnTable[labelNum]);
+//    QRectF rect(0, 0, cardsOnTable[labelNum].pix.width()-1, cardsOnTable[labelNum].pix.height()-1);
+//    QPen pen("red");
+//    pen.setWidth(3);
 
-    QRectF rect(0, 0, cardsOnTable[labelNum].pix.width()-1, cardsOnTable[labelNum].pix.height()-1);
-    QPen pen("red");
-    pen.setWidth(3);
-
-    QPainter painter;
+    //QPixmap temp;
+//    QPainter painter;
 //    painter.begin(&cardsOnTable[labelNum].pix);
 //    painter.save();
 //    painter.end();
     if(cardsOnTable[labelNum].selected) {
-
         ui->mousePressChecker->setText(str1);
-        painter.begin(&cardsOnTable[labelNum].pix);
-        //painter.save();
-        painter.setPen(pen);
-        painter.drawRoundedRect(rect, 20, 20);
-        painter.end();
+//        painter.begin(&cardsOnTable[labelNum].pix);
+//        //painter.save();
+//        painter.setPen(pen);
+//        painter.drawRoundedRect(rect, 20, 20);
+//        painter.end();
         //ui->label->setPixmap(cardsOnTable[labelNum].pix);
-        ui->label->setPixmap(cardsOnTable[labelNum].pix);
+        ui->label->setPixmap(cardsOnTable[labelNum].pixOn);
 
     } else {
         ui->mousePressChecker->setText(str2);
@@ -114,8 +143,9 @@ void MainWindow::MousePressed(int labelNum)
 //        painter.restore();
 //        painter.end();
 
-        ui->label->setPixmap(temp.pix);
+//        ui->label->setPixmap(temp);
 //        ui->label->setPixmap(cardsOnTable[1].pix);
+        ui->label->setPixmap(cardsOnTable[labelNum].pix);
 
     }
 
