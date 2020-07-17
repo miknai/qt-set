@@ -3,6 +3,7 @@
 //#include <QTimer>
 #include <QDebug>
 //#include <QRandomGenerator>
+#include <QPainter>
 #include <algorithm>
 
 
@@ -44,5 +45,27 @@ void Set::putOnTable(QVector<Card> &cards, QVector<Card> &cardsOnTable) {
             cardsOnTable.push_back(cards.back());
             cards.pop_back();
         }
+    }
+}
+
+// TODO: combine this to loadPix function
+void Set::paintPixOn(QVector<Card> &cardsOnTable) {
+    QRectF rect(0, 0, cardsOnTable[0].pixOff.width()-1, cardsOnTable[0].pixOff.height()-1);
+    QPen pen("red");
+    pen.setWidth(3);
+
+    for(int i=0; i < cardsOnTable.size(); ++i) {
+        QPainter painter;
+        painter.begin(&cardsOnTable[i].pixOn);
+        painter.setPen(pen);
+        painter.drawRoundedRect(rect, 20, 20);
+        painter.end();
+    }
+}
+
+void Set::loadPix(QVector<Card> &cardsOnTable) {
+    for(int i=0; i < cardsOnTable.size(); ++i){
+        cardsOnTable[i].pixOff.load(QString("/Users/geonsookim/Desktop/qt-set/img/card%1.png").arg(i+1));
+        cardsOnTable[i].pixOn.load(QString("/Users/geonsookim/Desktop/qt-set/img/card%1.png").arg(i+1));
     }
 }

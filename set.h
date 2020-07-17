@@ -11,7 +11,7 @@ public:
     struct Card {
         int number;
         bool onTable = false;
-        QPixmap pix;
+        QPixmap pixOff;
         QPixmap pixOn;
         bool selected = false;
     };
@@ -23,9 +23,11 @@ public:
     static void shuffle(QVector<Card> &cards);
     static void print(QVector<Card> &cards);
     static void putOnTable(QVector<Card> &cards, QVector<Card> &cardsOnTable);
+    static void paintPixOn(QVector<Card> &cardsOnTable);
+    static void loadPix(QVector<Card> &cardsOnTable);
 
     static const int totalCardNum = 81;
-    static const int tableCardNum = 12;
+    static const int tableCardNum = 3;
 
 //private:
 //    int number;

@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QVector>
 #include "set.h"
+#include "clickablelabel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,6 +26,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QVector<Set::Card> cardsOnTable;
+    QList<ClickableLabel*> childs;
     //int cnt;
     bool state = false;
     bool state2 = false;
