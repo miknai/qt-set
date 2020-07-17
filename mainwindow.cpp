@@ -15,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    QWidget::raise();
 
     QSignalMapper* signalMapper = new QSignalMapper(this);
     childs = ui->gridLayoutWidget->findChildren<ClickableLabel*>();
@@ -62,12 +61,31 @@ void MainWindow::MousePressed(int labelNum)
     QString str2 = QString("toggled%1").arg(labelNum);
 
     if(cardsOnTable[labelNum].selected) {
+
+        clickedIndex.push_back(labelNum);
+        if(clickedIndex.size() > 3) {
+            qInfo() << "more than 3";
+            for(int i=0; i < 3; ++i) {
+                childs[clickedIndex[0]]->setPixmap(cardsOnTable[clickedIndex[0]].pixOff);
+                cardsOnTable[clickedIndex[0]].selected = false;
+                clickedIndex.pop_front();
+            }
+        }
         ui->mousePressChecker->setText(str1);
         childs[labelNum]->setPixmap(cardsOnTable[labelNum].pixOn);
 
     } else {
+        if(clickedIndex.contains(labelNum)) {
+            clickedIndex.remove(clickedIndex.indexOf(labelNum));
+        }
         ui->mousePressChecker->setText(str2);
         childs[labelNum]->setPixmap(cardsOnTable[labelNum].pixOff);
 
+    }
+    ui->clickedCardNum->setText(QString::number(clickedIndex.size()));
+
+    qInfo() << "buffer";
+    for(int i : clickedIndex) {
+        qInfo() << i << " ";
     }
 }

@@ -26,6 +26,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QVector<Set::Card> cardsOnTable;
+    QVector<int> clickedIndex;
     QList<ClickableLabel*> childs;
     //int cnt;
     bool state = false;
