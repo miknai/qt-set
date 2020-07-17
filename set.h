@@ -27,7 +27,7 @@ public:
     static void loadPix(QVector<Card> &cardsOnTable);
 
     static const int totalCardNum = 81;
-    static const int tableCardNum = 3;
+    static const int tableCardNum = 12;
 
 //private:
 //    int number;

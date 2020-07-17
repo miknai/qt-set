@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+//    QWidget::raise();
 
     QSignalMapper* signalMapper = new QSignalMapper(this);
     childs = ui->gridLayoutWidget->findChildren<ClickableLabel*>();
