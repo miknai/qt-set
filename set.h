@@ -7,7 +7,6 @@
 class Set
 {
 public:
-    Set();
 
     struct Card {
         int number;
@@ -16,6 +15,9 @@ public:
         bool selected = false;
     };
 
+    Set();
+    Set(Card card);
+
     static void initialize(QVector<Card> &cards);
     static void shuffle(QVector<Card> &cards);
     static void print(QVector<Card> &cards);
@@ -23,6 +25,12 @@ public:
 
     static const int totalCardNum = 81;
     static const int tableCardNum = 12;
+
+private:
+    int number;
+    bool onTable = false;
+    QPixmap pix;
+    bool selected = false;
 };
 
 #endif // SET_H

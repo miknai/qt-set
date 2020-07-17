@@ -1,6 +1,6 @@
 #include <QPixmap>
 #include <QPainter>
-//#include <QThread>
+#include <QDataWidgetMapper>
 #include <QDebug>
 #include <QSignalMapper>
 #include <QString>
@@ -17,11 +17,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     QSignalMapper* signalMapper = new QSignalMapper(this);
+
+    // TODO: find a way to parameterize them
     connect(ui->label, SIGNAL(clicked()), signalMapper, SLOT(map()));
     connect(ui->label_2, SIGNAL(clicked()), signalMapper, SLOT(map()));
+    //connect(ui->label_3, SIGNAL(clicked()), signalMapper, SLOT(map()));
 
     signalMapper->setMapping(ui->label, 0);
     signalMapper->setMapping(ui->label_2, 1);
+    //signalMapper->setMapping(ui->label_3, 2);
+
 
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(MousePressed(int)));
 
@@ -65,22 +70,53 @@ void MainWindow::MousePressed(int labelNum)
     QString str1 = QString("pressed%1").arg(labelNum);
     QString str2 = QString("toggled%1").arg(labelNum);
 
+//    ui->label->setPixmap(cardsOnTable[labelNum].pix);
+//    ui->label->setPixmap(cardsOnTable[labelNum].pix);
+//    ui->label->setPixmap(cardsOnTable[labelNum].pix);
+
+//    QDataWidgetMapper *mapper = new QDataWidgetMapper;
+//    //mapper->setModel(myModel);
+//    mapper->addMapping(ui->label, 0);
+//    mapper->addMapping(ui->label_2, 1);
+//    mapper->addMapping(ui->label_3, 2);
+
+//    QPixmap *temp = new QPixmap;
+//    temp = &cardsOnTable[labelNum].pix;
+//    QPixmap temp2 = *temp;
+
+    Set::Card temp(cardsOnTable[labelNum]);
+
     QRectF rect(0, 0, cardsOnTable[labelNum].pix.width()-1, cardsOnTable[labelNum].pix.height()-1);
     QPen pen("red");
     pen.setWidth(3);
 
+    QPainter painter;
+//    painter.begin(&cardsOnTable[labelNum].pix);
+//    painter.save();
+//    painter.end();
     if(cardsOnTable[labelNum].selected) {
+
         ui->mousePressChecker->setText(str1);
-        QPainter painter;
         painter.begin(&cardsOnTable[labelNum].pix);
+        //painter.save();
         painter.setPen(pen);
         painter.drawRoundedRect(rect, 20, 20);
         painter.end();
-//        ui->label->setPixmap(cardsOnTable[labelNum].pix);
+        //ui->label->setPixmap(cardsOnTable[labelNum].pix);
         ui->label->setPixmap(cardsOnTable[labelNum].pix);
 
     } else {
         ui->mousePressChecker->setText(str2);
+//        painter.begin(&cardsOnTable[labelNum].pix);
+//        painter.setPen(Qt::NoPen);
+//        painter.drawRoundedRect(rect, 20, 20);
+
+//        painter.restore();
+//        painter.end();
+
+        ui->label->setPixmap(temp.pix);
+//        ui->label->setPixmap(cardsOnTable[1].pix);
+
     }
 
 

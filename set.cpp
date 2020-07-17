@@ -8,6 +8,13 @@
 
 Set::Set() { }
 
+Set::Set(Card card) {
+    this->number = card.number;
+    this->onTable = card.onTable;
+    this->pix = card.pix;
+    this->selected = card.selected;
+}
+
 void Set::initialize(QVector<Card> &cards) {
     for(int i=0; i < cards.size(); ++i) {
         cards[i].number = i;
