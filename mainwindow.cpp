@@ -37,8 +37,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // put 12 cards on table
     Set::putOnTable(cards, cardsOnTable);
-//    qInfo() << "cardsOnTable";
-//    Set::print(cardsOnTable);
+    qInfo() << "cardsOnTable";
+    Set::print(cardsOnTable);
 
     Set::loadPix(cardsOnTable);
     Set::paintPixOn(cardsOnTable);
@@ -64,7 +64,7 @@ void MainWindow::MousePressed(int labelNum)
 
         clickedIndex.push_back(labelNum);
         if(clickedIndex.size() > 3) {
-            qInfo() << "more than 3";
+            //qInfo() << "more than 3";
             for(int i=0; i < 3; ++i) {
                 childs[clickedIndex[0]]->setPixmap(cardsOnTable[clickedIndex[0]].pixOff);
                 cardsOnTable[clickedIndex[0]].selected = false;
@@ -84,8 +84,8 @@ void MainWindow::MousePressed(int labelNum)
     }
     ui->clickedCardNum->setText(QString::number(clickedIndex.size()));
 
-    qInfo() << "buffer";
-    for(int i : clickedIndex) {
-        qInfo() << i << " ";
-    }
+//    qInfo() << "buffer";
+//    for(int i : clickedIndex) {
+//        qInfo() << i << " ";
+//    }
 }

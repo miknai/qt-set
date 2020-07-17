@@ -65,7 +65,7 @@ void Set::paintPixOn(QVector<Card> &cardsOnTable) {
 
 void Set::loadPix(QVector<Card> &cardsOnTable) {
     for(int i=0; i < cardsOnTable.size(); ++i){
-        cardsOnTable[i].pixOff.load(QString("/Users/geonsookim/Desktop/qt-set/img/card%1.png").arg(i+1));
-        cardsOnTable[i].pixOn.load(QString("/Users/geonsookim/Desktop/qt-set/img/card%1.png").arg(i+1));
+        cardsOnTable[i].pixOff.load(QString("/Users/geonsookim/Desktop/qt-set/img/card%1.png").arg(cardsOnTable[i].number));
+        cardsOnTable[i].pixOn.load(QString("/Users/geonsookim/Desktop/qt-set/img/card%1.png").arg(cardsOnTable[i].number));
     }
 }
