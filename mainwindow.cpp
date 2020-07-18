@@ -24,21 +24,22 @@ MainWindow::MainWindow(QWidget *parent)
     }
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(MousePressed(int)));
 
-    QVector<Set::Card> cards(Set::totalCardNum+1);
+    QVector<Set::Card> deck(Set::totalCardNum+1);
+    cards.append(deck);
     // initalize card deck
     Set::initialize(cards);
 //    qInfo() << "initialize";
 //    Set::print(cards);
 
     // shuffle card deck
-    Set::shuffle(cards);
+//    Set::shuffle(cards);
 //    qInfo() << "shuffle";
 //    Set::print(cards);
 
     // put 12 cards on table
-    Set::putOnTable(cards, cardsOnTable);
-    qInfo() << "cardsOnTable";
-    Set::print(cardsOnTable);
+    Set::setInitialCards(cards, cardsOnTable);
+//    qInfo() << "cardsOnTable";
+//    Set::print(cardsOnTable);
 
     Set::loadPix(cardsOnTable);
     Set::paintPixOn(cardsOnTable);
@@ -65,9 +66,10 @@ void MainWindow::MousePressed(int labelNum)
         clickedIndex.push_back(labelNum);
         if(clickedIndex.size() > 3) {
             //qInfo() << "more than 3";
+            bool setCheck = Set::isSet(cardsOnTable, clickedIndex);
             for(int i=0; i < 3; ++i) {
-                childs[clickedIndex[0]]->setPixmap(cardsOnTable[clickedIndex[0]].pixOff);
-                cardsOnTable[clickedIndex[0]].selected = false;
+                childs[clickedIndex.front()]->setPixmap(cardsOnTable[clickedIndex.front()].pixOff);
+                cardsOnTable[clickedIndex.front()].selected = false;
                 clickedIndex.pop_front();
             }
         }

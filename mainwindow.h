@@ -25,6 +25,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QVector<Set::Card> cards;
     QVector<Set::Card> cardsOnTable;
     QVector<int> clickedIndex;
     QList<ClickableLabel*> childs;
