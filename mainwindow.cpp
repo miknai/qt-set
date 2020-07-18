@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
 //    Set::print(cards);
 
     // shuffle card deck
-//    Set::shuffle(cards);
+    Set::shuffle(cards);
 //    qInfo() << "shuffle";
 //    Set::print(cards);
 
@@ -61,21 +61,25 @@ void MainWindow::MousePressed(int labelNum)
     QString str1 = QString("pressed%1").arg(labelNum);
     QString str2 = QString("toggled%1").arg(labelNum);
 
+    bool validSet = false;
     if(cardsOnTable[labelNum].selected) {
-
         clickedIndex.push_back(labelNum);
-        if(clickedIndex.size() > 3) {
-            //qInfo() << "more than 3";
-            bool setCheck = Set::isSet(cardsOnTable, clickedIndex);
-            for(int i=0; i < 3; ++i) {
+        childs[labelNum]->setPixmap(cardsOnTable[labelNum].pixOn);
+
+        int clickedNum = clickedIndex.size();
+        if(clickedNum >= 3) {
+            validSet = Set::isSet(cardsOnTable, clickedIndex);
+            for(int i=0; i < clickedNum; ++i) {
                 childs[clickedIndex.front()]->setPixmap(cardsOnTable[clickedIndex.front()].pixOff);
                 cardsOnTable[clickedIndex.front()].selected = false;
                 clickedIndex.pop_front();
             }
         }
-        ui->mousePressChecker->setText(str1);
-        childs[labelNum]->setPixmap(cardsOnTable[labelNum].pixOn);
 
+        ui->mousePressChecker->setText(str1);
+        //childs[labelNum]->setPixmap(cardsOnTable[labelNum].pixOn);
+        if(validSet) {ui->mousePressChecker->setText("SET");}
+        //else { ui->mousePressChecker->setText("not SET");}
     } else {
         if(clickedIndex.contains(labelNum)) {
             clickedIndex.remove(clickedIndex.indexOf(labelNum));
